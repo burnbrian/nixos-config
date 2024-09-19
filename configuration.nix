@@ -51,6 +51,7 @@
       extraPackages = with pkgs; [
         dmenu # launcher for i3
         i3lock # screen locker
+        i3status # status information
         xautolock # automatic screen lock
         i3blocks # status bar
         pavucontrol # sound

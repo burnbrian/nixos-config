@@ -86,8 +86,8 @@
   };
 
   # Scripts
-  home.file.".bin" = {
-    source = ./scripts;
+  home.file."${config.xdg.configHome}/scripts" = {
+    source = ./config/scripts;
     recursive = true;
     executable = true;
   };
@@ -104,6 +104,12 @@
     enable = true;
     userName = "burnbrian";
     userEmail = "98911252+burnbrian@users.noreply.github.com";
+    extraConfig = {
+      commit.gpgsign = true;
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      user.signingkey = "~/.ssh/id_ed25519_sk.pub";
+    };
   };
 
   # Starship
