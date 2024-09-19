@@ -67,6 +67,7 @@
     bitwarden-desktop
     slack
     zoom-us
+    xclip # for tmux yank
   ];
 
   # VSCode
@@ -82,6 +83,13 @@
       esbenp.prettier-vscode
       shd101wyy.markdown-preview-enhanced
     ];
+  };
+
+  # Scripts
+  home.file.".bin" = {
+    source = ./scripts;
+    recursive = true;
+    executable = true;
   };
 
   # Dotfiles recursive
