@@ -5,54 +5,33 @@
   home.username = "brian";
   home.homeDirectory = "/home/brian";
 
-  # link the configuration file in current directory to the specified location in home directory
-  # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
-
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
-
-  # encode the file content in nix configuration file directly
-  # home.file.".xxx".text = ''
-  #     xxx
-  # '';
-
   # set cursor size and dpi for 4k monitor
   xresources.properties = {
     "Xcursor.size" = 18;
     "Xft.dpi" = 100;
   };
 
-  # Packages that should be installed to the user profile.
+  # Packages
   home.packages = with pkgs; [
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
+    # Utilities
     neofetch
-    nnn # terminal file manager
-    # archives
+    nnn
     zip
     xz
     unzip
     p7zip
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processor https://github.com/mikefarah/yq
-    eza # A modern replacement for ‘ls’
-    fzf # A command-line fuzzy finder
-    # networking tools
-    mtr # A network diagnostic tool
+    ripgrep
+    jq
+    yq-go
+    eza
+    fzf
+    mtr
     iperf3
-    dnsutils  # `dig` + `nslookup`
-    ldns # replacement of `dig`, it provide the command `drill`
-    aria2 # A lightweight multi-protocol & multi-source command-line download utility
-    socat # replacement of openbsd-netcat
-    nmap # A utility for network discovery and security auditing
-    ipcalc  # it is a calculator for the IPv4/v6 addresses
-    # misc
+    dnsutils
+    ldns
+    socat
+    nmap
+    ipcalc
     file
     which
     tree
@@ -62,29 +41,64 @@
     zstd
     gnupg
     nix-output-monitor
-    btop  # replacement of htop/nmon
-    iotop # io monitoring
-    iftop # network monitoring
-    # system call monitoring
-    strace # system call monitoring
-    ltrace # library call monitoring
-    lsof # list open files
-    # system tools
+    btop
+    iotop
+    iftop
+    strace
+    ltrace
+    lsof
     sysstat
-    lm_sensors # for `sensors` command
+    lm_sensors
     ethtool
-    pciutils # lspci
-    usbutils # lsusb
+    pciutils
+    usbutils
+    # Programs, breakout later
+    wget
+    curl
+    vim
+    tmux
+    alacritty
+    # Others
+    vscode
+    firefox
+    obsidian
+    signal-desktop
+    discord
+    bitwarden-desktop
+    slack
+    zoom-us
   ];
 
-  # basic configuration of git, please change to your own
+  # VSCode
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+      github.copilot
+      github.copilot-chat
+      bbenoist.nix
+      yzhang.markdown-all-in-one
+      davidanson.vscode-markdownlint
+      esbenp.prettier-vscode
+      shd101wyy.markdown-preview-enhanced
+    ];
+  };
+
+  # Dotfiles recursive
+  # https://discourse.nixos.org/t/deploy-files-into-home-directory-with-home-manager/24018
+  home.file."${config.xdg.configHome}" = {
+    source = ./config;
+    recursive = true;
+  };
+
+  # GitHub.com, git-crypt these?
   programs.git = {
     enable = true;
     userName = "burnbrian";
     userEmail = "98911252+burnbrian@users.noreply.github.com";
   };
 
-  # starship - an customizable prompt for any shell
+  # Starship
   programs.starship = {
     enable = true;
     # custom settings
@@ -96,7 +110,7 @@
     };
   };
 
-  # alacritty - a cross-platform, GPU-accelerated terminal emulator
+  # Alacritty 
   programs.alacritty = {
     enable = true;
     # custom settings
@@ -110,6 +124,7 @@
     };
   };
 
+  # Bash
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -117,9 +132,8 @@
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     '';
 
-    # set some aliases, feel free to add more or remove some
+    # Aliases
     shellAliases = {
-      k = "kubectl";
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
     };

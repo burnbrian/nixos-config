@@ -16,7 +16,7 @@
   
   # Networking
   networking = {
-    hostName = "nixos";
+    hostName = "alaska";
     networkmanager.enable = true;
     firewall.enable = true;
     wireless.enable = false;
@@ -49,12 +49,14 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-        dmenu
-        wofi
-        i3status
-        i3lock
-        i3blocks
-        pavucontrol
+        dmenu # launcher for i3
+        i3lock # screen locker
+        xautolock # automatic screen lock
+        i3blocks # status bar
+        pavucontrol # sound
+        maim # screenshot app for i3 config
+        xclip # copy screenshot to clipboard
+        xdotool # screenshot, select window
      ];
     };
   };
@@ -105,15 +107,7 @@
     isNormalUser = true;
     description = "Brian";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      obsidian
-      signal-desktop
-      discord
-      bitwarden-desktop
-      slack
-      neofetch
-    ];
+    packages = with pkgs; [];
   };
 
   # Allow unfree packages
@@ -124,14 +118,9 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    git # Required first for flakes
-    wget
-    curl
-    vim
-    tmux
-    alacritty
-    nmap
-    btop
+    git # required for flakes
+    vim # nano is only installed default
+    tmux # terminal multiplexer magic
   ];
 
   # Editor VIM
