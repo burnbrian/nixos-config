@@ -23,6 +23,9 @@
     enableIPv6 = false;
   };
 
+  # Enable DCONF
+  programs.dconf.enable = true;
+
   # Audio, this is enough to get audio working on most laptops/desktops
   hardware.pulseaudio.enable = true;
 

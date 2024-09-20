@@ -11,6 +11,29 @@
     "Xft.dpi" = 100;
   };
 
+  # DCONF prefer dark
+  dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        gtk-theme = "Adwaita-dark";
+        color-scheme = "prefer-dark";
+      };
+    };
+
+  # GTK Adwaita Dark
+  gtk = {
+      enable = true;
+      theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome.gnome-themes-extra;
+      };
+    };
+
+  # QT Adwaita Dark
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+  };
+
   # Packages
   home.packages = with pkgs; [
     # Utilities
@@ -107,7 +130,6 @@
     extraConfig = {
       commit.gpgsign = true;
       gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       user.signingkey = "~/.ssh/id_ed25519_sk.pub";
     };
   };
