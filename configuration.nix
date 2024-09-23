@@ -79,8 +79,27 @@
   };
   
   # Nvidia Drivers
-  services.xserver.videoDrivers = [ "nvidia" ];
-  
+  services.xserver = {
+      videoDrivers = [ "nvidia" ];
+      # Fixing screen tears -> {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}
+      screenSection = ''
+        Identifier     "Screen0"
+        Device         "Device0"
+        Monitor        "Monitor0"
+        DefaultDepth   24
+        Option         "Stereo" "0"
+        Option         "nvidiaXineramaInfoOrder" "DFP-0"
+        Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+        Option         "SLI" "Off"
+        Option         "MultiGPU" "Off"
+        Option         "BaseMosaic" "off"
+        SubSection     "Display"
+        Depth          24
+        EndSubSection
+    '';
+  };
+
+  # More NVIDIA Settings
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;

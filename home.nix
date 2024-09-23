@@ -7,7 +7,7 @@
 
   # set cursor size and dpi for 4k monitor
   xresources.properties = {
-    "Xcursor.size" = 18;
+    "Xcursor.size" = 24;
     "Xft.dpi" = 100;
   };
 
@@ -91,6 +91,7 @@
     slack
     zoom-us
     xclip # for tmux yank
+    gparted
   ];
 
   # VSCode
