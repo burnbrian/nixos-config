@@ -92,6 +92,7 @@
     zoom-us
     xclip # for tmux yank
     gparted
+    vlc
   ];
 
   # VSCode
