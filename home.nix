@@ -93,7 +93,7 @@
     xclip # for tmux yank
     gparted
     vlc
-  ];
+];
 
   # VSCode
   programs.vscode = {
