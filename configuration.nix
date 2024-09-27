@@ -102,6 +102,8 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
+    # Fixes screen tearing
+    forceFullCompositionPipeline = true;
   };
 
   # Set your time zone.
