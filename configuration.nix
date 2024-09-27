@@ -24,8 +24,8 @@
   };
 
   # Network Share
-  fileSystems."/mnt/Florida" = {
-  device = "//192.168.80.51/Florida";
+  fileSystems."/mnt/Idaho" = {
+  device = "//192.168.80.51/Idaho";
   fsType = "cifs";
   options = let
     # this line prevents hanging on network split
@@ -53,6 +53,8 @@
     thunar-archive-plugin
     thunar-volman
   ];
+  # Thumbnails?
+  services.tumbler.enable = true;
 
   # Virtualbox
   virtualisation.virtualbox.host.enable = true;

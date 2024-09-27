@@ -93,6 +93,7 @@
     xclip # for tmux yank
     gparted
     vlc
+    remmina
 ];
 
   # VSCode
