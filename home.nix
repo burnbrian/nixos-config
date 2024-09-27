@@ -94,6 +94,8 @@
     gparted
     vlc
     remmina
+    imagemagick
+    lxappearance
 ];
 
   # VSCode

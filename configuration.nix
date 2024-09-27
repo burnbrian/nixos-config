@@ -65,17 +65,18 @@
   services.displayManager.defaultSession = "none+i3";
   services.xserver = {
     enable = true;
-
+    # Disable XTERM
     desktopManager = {
       xterm.enable = false;
     };
-
+    # Enable i3
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
         dmenu # launcher for i3
+        rofi # newer dmenu
         i3lock # screen locker
-        i3status # status information
+        i3status # i3 status
         xautolock # automatic screen lock
         i3blocks # status bar
         pavucontrol # sound
