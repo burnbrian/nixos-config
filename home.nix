@@ -96,6 +96,9 @@
     remmina
     imagemagick
     lxappearance
+    keepassxc
+    libreoffice
+    hashcat
 ];
 
   # VSCode

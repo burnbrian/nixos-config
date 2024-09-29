@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Compiled cuda binaries
+      ./cachix.nix
     ];
 
   # Bootloader.
@@ -23,14 +25,23 @@
     enableIPv6 = false;
   };
 
-  # Network Share
+  # Network Share Florida Pentesting
+  fileSystems."/mnt/Florida" = {
+  device = "//192.168.80.51/Florida";
+  fsType = "cifs";
+  options = let
+    # this line prevents hanging on network split
+    automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+  in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
+  };
+
+  # Network Share Idaho General
   fileSystems."/mnt/Idaho" = {
   device = "//192.168.80.51/Idaho";
   fsType = "cifs";
   options = let
     # this line prevents hanging on network split
     automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-
   in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
   };
   
@@ -58,8 +69,15 @@
 
   # Virtualbox
   virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "brian" ];  
-  
+  users.extraGroups.vboxusers.members = [ "brian" ];
+  # Docker
+  virtualisation.docker.enable = true;
+  users.extraGroups.docker.members = [ "docker" ];
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # Window Manager i3
   environment.pathsToLink = [ "/libexec" ];
   services.displayManager.defaultSession = "none+i3";
@@ -83,6 +101,7 @@
         maim # screenshot app for i3 config
         xclip # copy screenshot to clipboard
         xdotool # screenshot, select window
+        feh # image viewer
      ];
     };
   };
