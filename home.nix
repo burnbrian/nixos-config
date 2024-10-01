@@ -178,6 +178,7 @@
 
     # Aliases
     shellAliases = {
+      alaska = "cd $HOME/nixos-config && sudo nixos-rebuild switch --flake .#alaska";
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
     };
